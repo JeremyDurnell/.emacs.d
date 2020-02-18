@@ -137,13 +137,13 @@
 (when (memq window-system '(ns))
   (global-set-key (kbd "M-w") 'ns-copy-including-secondary))
 
-;; ITERM2 MOUSE SUPPORT
-    (unless window-system
-      (require 'mouse)
-      (xterm-mouse-mode t)
-      (defun track-mouse (e)) 
-      (setq mouse-sel-mode t)
-    )
+;; iTerm2 mouse support
+(unless window-system
+  (require 'mouse)
+  (xterm-mouse-mode t)
+  (defun track-mouse (e)) 
+  (setq mouse-sel-mode t)
+  )
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
