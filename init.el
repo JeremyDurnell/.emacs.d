@@ -85,7 +85,7 @@
   (defun evil-terminal-cursor-change ()
     (unless (display-graphic-p)
       (add-hook 'evil-insert-state-entry-hook (lambda () (evil-send-string-to-terminal "\033[5 q")))
-      (add-hook 'evil-insert-state-exit-hook  (lambda () (evil-send-string-to-terminal "\033[0 q"))))
+      (add-hook 'evil-insert-state-exit-hook  (lambda () (evil-send-string-to-terminal "\033[0 q"))))    
     (when (and (getenv "TMUX")  (string= (getenv "TERM_PROGRAM") "iTerm.app"))
       (add-hook 'evil-insert-state-entry-hook (lambda () (evil-send-string-to-terminal "\ePtmux;\e\e]50;CursorShape=1\x7\e\\")))
       (add-hook 'evil-insert-state-exit-hook  (lambda () (evil-send-string-to-terminal "\ePtmux;\e\e]50;CursorShape=0\x7\e\\")))))
@@ -128,6 +128,22 @@
 ;; cycle through buffers with Ctrl-Tab (like Firefox)
 (global-set-key (kbd "<C-tab>") 'previous-buffer)
 (global-set-key (kbd "<C-S-iso-lefttab>") 'next-buffer)
+
+;; swap left control and command keys on mac
+(setq mac-control-modifier 'super)
+(setq mac-command-modifier 'control)
+
+;; use ns-copy-including-secondary on mac (this is a better copy function)
+(when (memq window-system '(ns))
+  (global-set-key (kbd "M-w") 'ns-copy-including-secondary))
+
+;; ITERM2 MOUSE SUPPORT
+    (unless window-system
+      (require 'mouse)
+      (xterm-mouse-mode t)
+      (defun track-mouse (e)) 
+      (setq mouse-sel-mode t)
+    )
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
